@@ -15,7 +15,12 @@ function App() {
     });
     setText("");
   }
-
+  const [isclicked, setClick] = useState(false);
+  function clicked() {
+    setClick((prev) => {
+      return !prev;
+    });
+  }
   return (
     <div className="container">
       <div className="heading">
@@ -30,7 +35,12 @@ function App() {
       <div>
         <ul>
           {items.map((item) => (
-            <li>{item}</li>
+            <li
+              onClick={clicked}
+              style={{ textDecoration: isclicked ? "line-through" : null }}
+            >
+              {item}
+            </li>
           ))}
         </ul>
       </div>
