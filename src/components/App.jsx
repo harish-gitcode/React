@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ToDoItem from "./list";
 
 function App() {
   const [text, setText] = useState("");
@@ -15,12 +16,15 @@ function App() {
     });
     setText("");
   }
-  const [isclicked, setClick] = useState(false);
-  function clicked() {
-    setClick((prev) => {
-      return !prev;
+
+  function deleteItem(id) {
+    setItem((prev) => {
+      return prev.filter((items, index) => {
+        return index !== id;
+      });
     });
   }
+
   return (
     <div className="container">
       <div className="heading">
@@ -34,13 +38,13 @@ function App() {
       </div>
       <div>
         <ul>
-          {items.map((item) => (
-            <li
-              onClick={clicked}
-              style={{ textDecoration: isclicked ? "line-through" : null }}
-            >
-              {item}
-            </li>
+          {items.map((item, index) => (
+            <ToDoItem
+              onChecked={deleteItem}
+              key={index}
+              text={item}
+              id={index}
+            />
           ))}
         </ul>
       </div>
